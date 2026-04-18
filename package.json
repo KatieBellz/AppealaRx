@@ -1,0 +1,26 @@
+{
+  "name": "appealarx",
+  "version": "1.0.0",
+  "description": "An insurance appeal letter generator built for small community health clinics.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KatieBellz/AppealaRx.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KatieBellz/AppealaRx/issues"
+  },
+  "homepage": "https://github.com/KatieBellz/AppealaRx#readme",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.90.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "node-fetch": "^3.3.2"
+  }
+}

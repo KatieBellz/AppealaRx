@@ -50,5 +50,28 @@
     <button type="submit">Generate Appeal Letter</button>
   </form>
   <div id="output" style="margin-top:30px;"></div>
+  <script>
+document.getElementById('appealForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  
+  const output = document.getElementById('output');
+  output.innerHTML = '<p>Generating your appeal letter...</p>';
+  
+  const response = await fetch('/generate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      patientName: document.getElementById('patientName').value,
+      insurance: document.getElementById('insurance').value,
+      service: document.getElementById('service').value,
+      denialReason: document.getElementById('denialReason').value,
+      notes: document.getElementById('notes').value
+    })
+  });
+  
+  const data = await response.json();
+  output.innerHTML = '<h3>Your Appeal Letter:</h3><pre style="white-space:pre-wrap">' + data.letter + '</pre>';
+});
+</script>
 </body>
 </html>
