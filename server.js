@@ -22,7 +22,8 @@ app.post('/generate', async (req, res) => {
     max_tokens: 1024,
     messages: [{
       role: 'user',
-      content: `Write a professional insurance appeal letter for:
+    content: `Write a professional insurance appeal letter. Do NOT use markdown formatting, asterisks, or ** symbols. Use plain text only.
+
 Patient Name: ${patientName}
 Insurance Company: ${insurance}
 Service denied: ${service}
