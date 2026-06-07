@@ -72,6 +72,11 @@ document.getElementById('appealForm').addEventListener('submit', async function(
   const data = await response.json();
   output.innerHTML = '<h3>Your Appeal Letter:</h3><pre style="white-space:pre-wrap">' + data.letter + '</pre>';
 });
+const printBtn = document.createElement('button');
+printBtn.textContent = 'Print / Save as PDF';
+printBtn.style.marginTop = '10px';
+printBtn.onclick = () => window.print();
+output.appendChild(printBtn);
 </script>
 </body>
 </html>
