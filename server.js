@@ -7,8 +7,7 @@ app.use(express.json());
 app.use(express.static('.'));
 
 app.post('/generate', async (req, res) => {
-  const { patientName, insurance, service, denialReason, notes } = req.body;
-
+const { patientName, insurance, service, denialReason, notes, dob, memberId, claimNumber } = req.body;
   try {
    const response = await fetch('https://api.anthropic.com/v1/messages', {
   method: 'POST',
@@ -26,6 +25,9 @@ app.post('/generate', async (req, res) => {
 
 Patient Name: ${patientName}
 Insurance Company: ${insurance}
+Date of Birth: ${dob}
+Member ID: ${memberId}
+Claim Number: ${claimNumber}
 Service denied: ${service}
 Reason for denial: ${denialReason}
 Additional notes: ${notes}`
