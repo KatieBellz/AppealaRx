@@ -4,7 +4,10 @@ const express = require('express');
 const app = express();
 
 app.use(express.json());
-app.use(express.static('.'));
+app.use(express.static(__dirname));
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
+});
 
 app.post('/generate', async (req, res) => {
 const { patientName, insurance, service, denialReason, notes, dob, memberId, claimNumber } = req.body;

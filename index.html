@@ -1,99 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AppealaRx</title>
-  <style>
-    body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    max-width: 650px;
-    margin: 40px auto;
-    padding: 30px;
-    background: #ffffff;
-    color: #333333;
-  }
-  h1 { 
-    color: #1a73e8; 
-    font-size: 2em;
-    margin-bottom: 4px;
-  }
-  p { color: #666; margin-top: 0; }
-  label { display: block; margin-top: 15px; font-weight: 600; }
-  input, textarea, select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 15px;
-    box-sizing: border-box;
-  }
-  button {
-    margin-top: 20px;
-    background: #1a73e8;
-    color: white;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 16px;
-    width: 100%;
-  }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AppealaRx</title>
+<style>
+body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 650px; margin: 40px auto; padding: 30px; background: #ffffff; color: #333; }
+h1 { color: #1a73e8; font-size: 2em; margin-bottom: 4px; }
+p { color: #666; margin-top: 0; }
+label { display: block; margin-top: 15px; font-weight: 600; }
+input, textarea { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 6px; font-size: 15px; box-sizing: border-box; }
+button { margin-top: 20px; background: #1a73e8; color: white; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; width: 100%; }
+</style>
 </head>
 <body>
-  <h1>AppealaRx</h1>
-  <p>Generate a professional insurance appeal letter in seconds.</p>
-  <form id="appealForm">
-    <label>Patient Name</label>
-    <input type="text" id="patientName" placeholder="Full name" required>
-    <label>Insurance Company</label>
-    <input type="text" id="insurance" placeholder="e.g. UnitedHealthcare" required>
-    <label>Service or Procedure Denied</label>
-    <input type="text" id="service" placeholder="e.g. MRI of left knee" required>
-    <label>Date of Birth</label>
+<h1>AppealaRx</h1>
+<p>Generate a professional insurance appeal letter in seconds.</p>
+<form id="appealForm">
+<label>Patient Name</label>
+<input type="text" id="patientName" placeholder="Full name" required>
+<label>Insurance Company</label>
+<input type="text" id="insurance" placeholder="e.g. UnitedHealthcare" required>
+<label>Service or Procedure Denied</label>
+<input type="text" id="service" placeholder="e.g. MRI of left knee" required>
+<label>Date of Birth</label>
 <input type="date" id="dob" required>
 <label>Member ID</label>
 <input type="text" id="memberId" placeholder="e.g. 123456789" required>
 <label>Claim Number</label>
 <input type="text" id="claimNumber" placeholder="e.g. CLM-2024-001" required>
-    <label>Reason for Denial</label>
-    <textarea id="denialReason" rows="3" placeholder="As stated on denial letter"></textarea>
-    <label>Additional Notes</label>
-    <textarea id="notes" rows="3" placeholder="Any supporting information"></textarea>
-    <button type="submit">Generate Appeal Letter</button>
-  </form>
-  <div id="output" style="margin-top:30px;"></div>
-  <script>
+<label>Reason for Denial</label>
+<textarea id="denialReason" rows="3" placeholder="As stated on denial letter"></textarea>
+<label>Additional Notes</label>
+<textarea id="notes" rows="3" placeholder="Any supporting information"></textarea>
+<button type="submit">Generate Appeal Letter</button>
+</form>
+<div id="output" style="margin-top:30px;"></div>
+<script>
 document.getElementById('appealForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  
-  const output = document.getElementById('output');
-  output.innerHTML = '<p>Generating your appeal letter...</p>';
-  
-  const response = await fetch('/generate', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      patientName: document.getElementById('patientName').value,
-      insurance: document.getElementById('insurance').value,
-      dob: document.getElementById('dob').value,
+e.preventDefault();
+const output = document.getElementById('output');
+output.innerHTML = '<p>Generating your appeal letter...</p>';
+const response = await fetch('/generate', {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({
+patientName: document.getElementById('patientName').value,
+insurance: document.getElementById('insurance').value,
+service: document.getElementById('service').value,
+dob: document.getElementById('dob').value,
 memberId: document.getElementById('memberId').value,
 claimNumber: document.getElementById('claimNumber').value,
-      service: document.getElementById('service').value,
-      denialReason: document.getElementById('denialReason').value,
-      notes: document.getElementById('notes').value
-    })
-  });
-  
-  const data = await response.json();
-  output.innerHTML = '<h3>Your Appeal Letter:</h3><pre style="white-space:pre-wrap">' + data.letter + '</pre>';
+denialReason: document.getElementById('denialReason').value,
+notes: document.getElementById('notes').value
+})
 });
+const data = await response.json();
+output.innerHTML = '<h3>Your Appeal Letter:</h3><pre style="white-space:pre-wrap">' + data.letter + '</pre>';
 const printBtn = document.createElement('button');
 printBtn.textContent = 'Print / Save as PDF';
 printBtn.style.marginTop = '10px';
 printBtn.onclick = () => window.print();
 output.appendChild(printBtn);
+});
 </script>
 </body>
 </html>
